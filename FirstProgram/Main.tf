@@ -1,28 +1,17 @@
 terraform {
   required_providers {
-    aws = {
-      source = "hashicorp/aws"
-      version = "6.33.0"
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "4.70.0"
     }
   }
 }
 
-#new line added something new kjbvibsifvbkjsgdfgdghtr
-provider "azure" {
-  region = "us-east-1"
+provider "azurerm" {
+  features {}
 }
-provider "azure" {
-  region = "us-east-2"
-}
-#nrew line dddfffsdssdfffeeeefffgggggggggg
-resource "aws_vpc" "main" {
-  cidr_block       = "192.168.0.0/22"
-  instance_tenancy = "default"
-  tags = {
-    Name = "main"
-  }
-}
+
 resource "azurerm_resource_group" "exa" {
-  name     = "example-resource-group"
+  name     = "Jenkin_example-resource-group"
   location = "eastus"
 }
