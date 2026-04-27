@@ -9,9 +9,15 @@ pipeline {
             }
         }
 
+        stage('Verify Tools') {
+            steps {
+                bat 'git --version'
+                bat 'terraform version'
+            }
+        }
+
         stage('Terraform Init') {
             steps {
-                bat 'terraform version'
                 bat 'terraform init'
             }
         }
@@ -19,12 +25,6 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 bat 'terraform plan'
-            }
-        }
-
-        stage('Terraform Apply') {
-            steps {
-                bat 'terraform apply -auto-approve'
             }
         }
     }
