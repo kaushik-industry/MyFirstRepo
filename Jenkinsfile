@@ -9,20 +9,20 @@ pipeline {
             }
         }
 
-        stage('Verify Tools') {
+        stage('Check Tools') {
             steps {
                 bat 'git --version'
                 bat 'terraform version'
             }
         }
 
-        stage('Terraform Init') {
+        stage('Init') {
             steps {
                 bat 'terraform init'
             }
         }
 
-        stage('Terraform Plan') {
+        stage('Plan') {
             steps {
                 bat 'terraform plan'
             }
