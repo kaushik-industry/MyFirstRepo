@@ -9,22 +9,19 @@ pipeline {
             }
         }
 
-        stage('Check Tools') {
+        stage('Terraform Init') {
             steps {
-                bat 'git --version'
-                bat 'terraform version'
+                dir('.') {
+                    bat 'terraform init'
+                }
             }
         }
 
-        stage('Init') {
+        stage('Terraform Plan') {
             steps {
-                bat 'terraform init'
-            }
-        }
-
-        stage('Plan') {
-            steps {
-                bat 'terraform plan'
+                dir('.') {
+                    bat 'terraform plan'
+                }
             }
         }
     }
