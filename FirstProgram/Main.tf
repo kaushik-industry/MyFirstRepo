@@ -10,7 +10,9 @@ terraform {
 provider "azurerm" {
   features {}
 }
+/*
 resource "azurerm_resource_group" "exa" {
   name     = "Jenkin_example-resource-group"
   location = "East US"
  }
+*/
