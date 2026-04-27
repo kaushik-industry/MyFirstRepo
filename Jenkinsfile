@@ -24,10 +24,10 @@ pipeline {
                 }
             }
         }
-          stage('Terraform apply') {
+          stage('Terraform Apply') {
             steps {
                 dir('FirstProgram') {
-                    bat 'terraform apply --auto-approve'
+                    bat 'terraform apply -auto-approve'
                 }
             }
         }
