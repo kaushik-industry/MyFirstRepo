@@ -35,12 +35,12 @@ pipeline {
                 }
             }
         }
-                  stage('Terraform Destroy') {
-            steps {
-                dir('FirstProgram') {
-                    bat 'terraform destroy -auto-approve'
-                }
-            }
-        }
+        //           stage('Terraform Destroy') {
+        //     steps {
+        //         dir('FirstProgram') {
+        //             bat 'terraform destroy -auto-approve'
+        //         }
+        //     }
+        // }
     }
 }
