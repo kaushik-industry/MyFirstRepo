@@ -20,7 +20,29 @@ pipeline {
                 }
             }
         }
+       stage('Validate') {
+            steps {
+                dir('FirstProgram') {
+                    bat 'terraform validate'
+        }
+    }
+}
 
+stage('Lint') {
+    steps {
+        dir('FirstProgram') {
+            bat 'tflint'
+        }
+    }
+}
+
+stage('Security Scan') {
+    steps {
+        dir('FirstProgram') {
+            bat 'tfsec .'
+        }
+    }
+}
         stage('Terraform Plan') {
             steps {
                 dir('FirstProgram') {
