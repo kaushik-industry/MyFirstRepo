@@ -1,9 +1,9 @@
 pipeline {
     agent any
     
-    triggers {
-    cron('H/5 * * * *')
-}
+//     triggers {
+//     cron('H/5 * * * *')
+// }
 
     stages {
 
@@ -32,6 +32,13 @@ pipeline {
             steps {
                 dir('FirstProgram') {
                     bat 'terraform apply -auto-approve'
+                }
+            }
+        }
+                  stage('Terraform Destory') {
+            steps {
+                dir('FirstProgram') {
+                    bat 'terraform destory -auto-approve'
                 }
             }
         }
