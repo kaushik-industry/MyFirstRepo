@@ -99,9 +99,9 @@ pipeline {
         stage('Trigger Tekton Pipeline') {
             steps {
                 echo 'Triggering Tekton Pipeline'
-
                 bat 'kubectl delete pipelinerun sip-gui-api-run --ignore-not-found'
                 bat 'kubectl apply -f pipelinerun.yaml'
+
             }
         }
 
