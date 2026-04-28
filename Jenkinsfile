@@ -74,7 +74,12 @@ pipeline {
 
         stage('SCM - Checkout Code') {
             steps {
-                git 'https://github.com/kaushik-industry/MyFirstRepo'
+                checkout([$class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/kaushik-industry/MyFirstRepo'
+                    ]]
+                ])
             }
         }
 
@@ -101,14 +106,12 @@ pipeline {
                 echo 'Triggering Tekton Pipeline'
                 bat 'kubectl delete pipelinerun sip-gui-api-run --ignore-not-found'
                 bat 'kubectl apply -f pipelinerun.yaml'
-
             }
         }
 
         stage('Verify Pods') {
             steps {
                 echo 'Checking Pods'
-
                 bat 'kubectl get pods -n tekton-pipelines'
             }
         }
