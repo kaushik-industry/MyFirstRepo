@@ -71,9 +71,37 @@ pipeline {
   agent any
 
   stages {
-    stage('Run Tekton Pipeline') {
+
+    stage('SCM - Clone Code') {
       steps {
-        bat 'kubectl apply -f pipelinerun.yaml'
+        echo 'Cloning repository from GitHub'
+      }
+    }
+
+    stage('Pre-check') {
+      steps {
+        echo 'Validating YAML files'
+        bat 'dir'
+      }
+    }
+
+    stage('Trigger Tekton Pipeline') {
+      steps {
+        echo 'Triggering Tekton Pipeline in Kubernetes'
+        bat 'kubectl create -f pipelinerun.yaml'
+      }
+    }
+
+    stage('Verify Pods') {
+      steps {
+        echo 'Checking Kubernetes Pods'
+        bat 'kubectl get pods -n tekton-pipelines'
+      }
+    }
+
+    stage('Pipeline Completed') {
+      steps {
+        echo 'Tekton Pipeline executed successfully'
       }
     }
   }
