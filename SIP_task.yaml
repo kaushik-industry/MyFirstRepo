@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: sip-task
+  namespace: tekton-pipelines
+spec:
+  steps:
+    - name: sip-step
+      image: alpine/git:latest
+      imagePullPolicy: IfNotPresent
+      script: |
+        echo "🚀 Running SIP job..."
+        sleep 5
+        echo "✅ SIP completed"
