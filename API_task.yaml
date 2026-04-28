@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: api-task
+  namespace: tekton-pipelines
+spec:
+  steps:
+    - name: api-step
+      image: alpine/git:latest
+      imagePullPolicy: IfNotPresent
+      script: |
+        echo "🚀 Running API job..."
+        sleep 5
+        echo "✅ API completed"
