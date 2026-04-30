@@ -1,32 +1,32 @@
-// pipeline {
-//     agent any
+pipeline {
+    agent any
     
-// //     triggers {
-// //     cron('H/5 * * * *')
-// // }
+    triggers {
+    cron('H/2 * * * *')
+}
 
-//     stages {
+    stages {
 
-//         stage('Checkout') {
-//             steps {
-//                 checkout scm
-//             }
-//         }
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
 
-//         stage('Terraform Init') {
-//             steps {
-//                 dir('FirstProgram') {
-//                     bat 'terraform init'
-//                 }
-//             }
-//         }
-//        stage('Validate') {
-//             steps {
-//                 dir('FirstProgram') {
-//                     bat 'terraform validate'
-//         }
-//     }
-// }
+        stage('Terraform Init') {
+            steps {
+                dir('FirstProgram') {
+                    bat 'terraform init'
+                }
+            }
+        }
+       stage('Validate') {
+            steps {
+                dir('FirstProgram') {
+                    bat 'terraform validate'
+        }
+    }
+}
 
 // stage('Lint') {
 //     steps {
@@ -36,82 +36,82 @@
 //     }
 // }
 
-// stage('Security Scan') {
-//     steps {
-//         dir('FirstProgram') {
-//             bat 'tfsec .'
-//         }
-//     }
-// }
-//         stage('Terraform Plan') {
-//             steps {
-//                 dir('FirstProgram') {
-//                     bat 'terraform plan'
-//                 }
-//             }
-//         }
-//           stage('Terraform Apply') {
-//             steps {
-//                 dir('FirstProgram') {
-//                     bat 'terraform apply -auto-approve'
-//                 }
-//             }
-//         }
-//         //           stage('Terraform Destroy') {
-//         //     steps {
-//         //         dir('FirstProgram') {
-//         //             bat 'terraform destroy -auto-approve'
-//         //         }
-//         //     }
-//         // }
-//     }
-// }
-
-pipeline {
-    agent any
-
-    stages {
-
-        stage('Checkout SCM') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('Pre-check') {
-            steps {
-                echo 'Checking workspace files...'
-                bat 'dir'
-            }
-        }
-
-        stage('Deploy Tekton Pipeline') {
-            steps {
-                echo 'Deploying Tekton resources'
-
-                bat 'kubectl apply -f SIP_task.yaml'
-                bat 'kubectl apply -f GUI_task.yaml'
-                bat 'kubectl apply -f API_task.yaml'
-                bat 'kubectl apply -f pipeline.yaml'
-            }
-        }
-
-        stage('Trigger Tekton Pipeline') {
-            steps {
-                echo 'Triggering Tekton PipelineRun'
-
-                bat 'kubectl delete pipelinerun sip-gui-api-run --ignore-not-found'
-                bat 'kubectl apply -f pipelinerun.yaml'
-            }
-        }
-
-        stage('Verify Pipeline Execution') {
-            steps {
-                echo 'Checking pipeline execution status'
-
-                bat 'kubectl get pipelinerun'
-                bat 'kubectl get pods -n tekton-pipelines'
-            }
+stage('Security Scan') {
+    steps {
+        dir('FirstProgram') {
+            bat 'tfsec .'
         }
     }
 }
+        stage('Terraform Plan') {
+            steps {
+                dir('FirstProgram') {
+                    bat 'terraform plan'
+                }
+            }
+        }
+          stage('Terraform Apply') {
+            steps {
+                dir('FirstProgram') {
+                    bat 'terraform apply -auto-approve'
+                }
+            }
+        }
+        //           stage('Terraform Destroy') {
+        //     steps {
+        //         dir('FirstProgram') {
+        //             bat 'terraform destroy -auto-approve'
+        //         }
+        //     }
+        // }
+    }
+}
+
+// pipeline {
+//     agent any
+
+//     stages {
+
+//         stage('Checkout SCM') {
+//             steps {
+//                 checkout scm
+//             }
+//         }
+
+//         stage('Pre-check') {
+//             steps {
+//                 echo 'Checking workspace files...'
+//                 bat 'dir'
+//             }
+//         }
+
+//         stage('Deploy Tekton Pipeline') {
+//             steps {
+//                 echo 'Deploying Tekton resources'
+
+//                 bat 'kubectl apply -f SIP_task.yaml'
+//                 bat 'kubectl apply -f GUI_task.yaml'
+//                 bat 'kubectl apply -f API_task.yaml'
+//                 bat 'kubectl apply -f pipeline.yaml'
+//             }
+//         }
+
+//         stage('Trigger Tekton Pipeline') {
+//             steps {
+//                 echo 'Triggering Tekton PipelineRun'
+
+//                 bat 'kubectl delete pipelinerun sip-gui-api-run --ignore-not-found'
+//                 bat 'kubectl apply -f pipelinerun.yaml'
+//             }
+//         }
+
+//         stage('Verify Pipeline Execution') {
+//             steps {
+//                 echo 'Checking pipeline execution status'
+
+//                 bat 'kubectl get pipelinerun'
+//                 bat 'kubectl get pods -n tekton-pipelines'
+//             }
+//         }
+//     }
+// }
