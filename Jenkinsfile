@@ -36,13 +36,13 @@ pipeline {
 //     }
 // }
 
-stage('Security Scan') {
-    steps {
-        dir('FirstProgram') {
-            bat 'tfsec .'
-        }
-    }
-}
+// stage('Security Scan') {
+//     steps {
+//         dir('FirstProgram') {
+//             bat 'tfsec .'
+//         }
+//     }
+// }
         stage('Terraform Plan') {
             steps {
                 dir('FirstProgram') {
